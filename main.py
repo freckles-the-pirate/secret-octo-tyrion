@@ -24,20 +24,25 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
+import sys
 
 # Import the local widgets
-import main_menu_bar
-import scan_view
+import base_layout
 
 class Base:
+
+    def delete_event(self, widget, event, data=None):
+        gtk.main_quit()
+        sys.exit()
+        return False
+
     def __init__(self):
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.window.add(BaseLayout())
-        self.window.show()
+        self.window.add(base_layout.BaseLayout())
+        self.window.show_all()
+        self.window.connect("delete_event", self.delete_event)
 
     def main(self):
-        self.mmb.main()
-        self.scanview.main()
         gtk.main()
 
 def main():
