@@ -38,12 +38,15 @@ class Base:
         return False
 
     def __init__(self):
-        gladefile = "./ui/RememberFile1.xml"
+        gladefile = "./ui/remember-file-gtk_2_0.xml"
         gbuilder = gtk.Builder()
         gbuilder.add_from_file(gladefile)
-        self.windowMain = gbuilder.get_object("window_main")
-        self.window.show_all()
-        self.window.signal_connect("delete_event", self.delete_event)
+	self.windowMain = gbuilder.get_object("window1")
+	if (self.windowMain == None):
+	    print "ERROR: Could not find main window."
+	    sys.exit()
+        self.windowMain.show_all()
+        self.windowMain.connect("delete_event", self.delete_event)
 
     def main(self):
         gtk.main()
